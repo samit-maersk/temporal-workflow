@@ -6,6 +6,21 @@
 - There are various example , which can be found [https://github.com/temporalio?q=samples-&type=all&language=&sort=](https://github.com/temporalio?q=samples-&type=all&language=&sort=)
 
 ### Start Temporal Server in Local dev environment
+
 ```shell
+docker compose up
+
+# if you have temporal CLI installed
 temporal server start-dev
 ```
+> .env, dynamicconfig are needed for this docker-compose to work
+> Once it is up and running, you can access the UI at http://localhost:3111
+
+### Start Temporal Worker (Which is nothing bit this springboot application)
+```shell
+./mvnw spring-boot:run
+```
+
+To test the flow , Import the postman collection from `postman` folder and run the request in order. 
+
+
