@@ -2,7 +2,7 @@ version: "3.5"
 services:
   elasticsearch:
     image: elasticsearch:${ELASTICSEARCH_VERSION:-latest}
-    container_name: temporal-elasticsearch
+    #container_name: temporal-elasticsearch
     environment:
       - cluster.routing.allocation.disk.threshold_enabled=true
       - cluster.routing.allocation.disk.watermark.low=512mb
@@ -19,7 +19,7 @@ services:
 #      - /var/lib/elasticsearch/data
   postgresql:
     image: postgres:${POSTGRESQL_VERSION:-latest}
-    container_name: temporal-postgresql
+    #container_name: temporal-postgresql
     environment:
       POSTGRES_PASSWORD: temporal
       POSTGRES_USER: temporal
@@ -31,7 +31,7 @@ services:
 #      - /var/lib/postgresql/data
   temporal:
     image: temporalio/auto-setup:${TEMPORAL_VERSION:-latest}
-    container_name: temporal
+    #container_name: temporal
     depends_on:
       - postgresql
       - elasticsearch
@@ -48,14 +48,14 @@ services:
     networks:
       - temporal-network
     ports:
-      - 7233:7233
+      - "7233:7233"
     labels:
       kompose.volume.type: configMap
     volumes:
       - ./dynamicconfig:/etc/temporal/config/dynamicconfig
   temporal-admin-tools:
     image: temporalio/admin-tools:${TEMPORAL_VERSION:-latest}
-    container_name: temporal-admin-tools
+    #container_name: temporal-admin-tools
     depends_on:
       - temporal
     environment:
@@ -66,7 +66,7 @@ services:
     tty: true
   temporal-ui:
     image: temporalio/ui:${TEMPORAL_UI_VERSION:-latest}
-    container_name: temporal-ui
+    #container_name: temporal-ui
     depends_on:
       - temporal
     environment:
@@ -75,6 +75,6 @@ services:
     networks:
       - temporal-network
     ports:
-      - 3111:8080
+      - "3111:8080"
 networks:
   temporal-network:
